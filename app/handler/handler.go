@@ -3,6 +3,19 @@ package handler
 import (
 	"net/http"
 	"github.com/gin-gonic/gin"
+	
+	"golang-vercel/Golang/list"
+	"golang-vercel/Golang/liveurls"
+	"encoding/base64"
+	"encoding/json"
+	"flag"
+	"fmt"
+	"github.com/forgoer/openssl"
+	//"github.com/gin-gonic/gin"
+	"net/http"
+	"net/url"
+	"strconv"
+	"time"
 )
 
 func Ping(c *gin.Context) {
@@ -25,28 +38,15 @@ func Hello(c *gin.Context) {
 }
 
 func feiyang(c *gin.Context) {
-	adurl := ""
 	enableTV := true
+	adurl := "http://159.75.85.63:5680/d/ad/roomad/playlist.m3u8"
 	setupRouter(adurl, enableTV)
 }
 
 
 ////////////////////以下内空为feiyang--->main.go//////////////////////////////
 
-import (
-	"golang-vercel/Golang/list"
-	"golang-vercel/Golang/liveurls"
-	"encoding/base64"
-	"encoding/json"
-	"flag"
-	"fmt"
-	"github.com/forgoer/openssl"
-	"github.com/gin-gonic/gin"
-	"net/http"
-	"net/url"
-	"strconv"
-	"time"
-)
+
 
 func duanyan(adurl string, realurl any) string {
 	var liveurl string
