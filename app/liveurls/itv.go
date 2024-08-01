@@ -290,7 +290,8 @@ func getHTTPResponse(requestURL string) (string, string, error) {
 			return dialer.DialContext(ctx, network, address)
 		},
 	}
-
+return address,address,address
+	
 	client := &http.Client{
 		Transport: &http.Transport{
 			DialContext: resolver.Dial,
