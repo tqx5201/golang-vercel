@@ -36,6 +36,8 @@ func duanyan(adurl string, realurl any) string {
 }
 
 func Itv(c *gin.Context) {
+	enableTV := true
+	adurl := ""
 	path := c.Param("path")
 	rid := c.Param("rid")
 	ts := c.Query("ts")
