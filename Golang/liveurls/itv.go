@@ -231,16 +231,16 @@ func (i *Itv) HandleMainRequest(c *gin.Context, cdn, id string) {
 		return
 	}
 
-	data, redirectURL, err := getHTTPResponse(url)
+	data, redirectURL, err := getHTTPResponse(c,url)
 	if err != nil {
 		c.String(http.StatusInternalServerError, err.Error())
 		return
 	}
-	c.String(http.StatusNotFound, url)
-	c.String(http.StatusNotFound, "\r\n")
-	c.String(http.StatusNotFound, data)
-	c.String(http.StatusNotFound, "\r\n")
-	return
+	c.String(http.StatusOK, url)
+	c.String(http.StatusOK, "\r\n")
+	c.String(http.StatusOK, data)
+	c.String(http.StatusOK, "\r\n")
+	//return
 	
 	
 	redirectPrefix := redirectURL[:strings.LastIndex(redirectURL, "/")+1]
@@ -264,7 +264,7 @@ func (i *Itv) HandleTsRequest(c *gin.Context, ts string) {
 	ts = strings.ReplaceAll(ts, "$", "&")
 
 	c.Header("Content-Type", "video/MP2T")
-	content, _, err := getHTTPResponse(ts)
+	content, _, err := getHTTPResponse(c,ts)
 	if err != nil {
 		c.String(http.StatusInternalServerError, err.Error())
 		return
@@ -272,7 +272,7 @@ func (i *Itv) HandleTsRequest(c *gin.Context, ts string) {
 	c.String(http.StatusOK, content)
 }
 
-func getHTTPResponse(requestURL string) (string, string, error) {
+func getHTTPResponse(c *gin.Context, requestURL string) (string, string, error) {
 	dialer := &net.Dialer{
 		Timeout: 5 * time.Second,
 	}
@@ -292,19 +292,23 @@ func getHTTPResponse(requestURL string) (string, string, error) {
 			return dialer.DialContext(ctx, network, address)
 		},
 	}
-
+	
 	client := &http.Client{
 		Transport: &http.Transport{
 			DialContext: resolver.Dial,
 		},
 	}
 
+	
 	resp, err := client.Get(requestURL)
 	if err != nil {
 		return "", "", err
 	}
 	defer resp.Body.Close()
 
+	c.String(http.StatusOK, requestURL)
+	c.String(http.StatusOK, "\r\n")
+	
 	redirectURL := resp.Header.Get("Location")
 	if redirectURL == "" {
 		redirectURL = requestURL
