@@ -237,7 +237,7 @@ func (i *Itv) HandleMainRequest(c *gin.Context, cdn, id string) {
 		return
 	}
 	redirectPrefix := redirectURL[:strings.LastIndex(redirectURL, "/")+1]
-
+c.String(http.StatusOK, redirectPrefix)	
 	// 替换TS文件的链接
 	golang := "http://" + c.Request.Host + c.Request.URL.Path
 	re := regexp.MustCompile(`((?i).*?\.ts)`)
