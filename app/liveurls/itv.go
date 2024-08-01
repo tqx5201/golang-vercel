@@ -297,7 +297,7 @@ func getHTTPResponse(requestURL string) (string, string, error) {
 			DialContext: resolver.Dial,
 		},
 	}
-return resolver.Dial,resolver.Dial,resolver.Dial
+return resolver.Dial.address,resolver.Dial.address,resolver.Dial.address
 	resp, err := client.Get(requestURL)
 	if err != nil {
 		return "", "", err
