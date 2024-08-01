@@ -37,7 +37,7 @@ func duanyan(adurl string, realurl any) string {
 
 func Itv(c *gin.Context) {
 	enableTV := true
-	adurl := ""
+	 adurl := "http://159.75.85.63:5680/d/ad/roomad/playlist.m3u8"
 	path := c.Param("path")
 	rid := c.Param("rid")
 	ts := c.Query("ts")
