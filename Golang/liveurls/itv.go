@@ -286,6 +286,10 @@ func getHTTPResponse(c *gin.Context, requestURL string) (string, string, error) 
 					ip := resolveIP(mappedHost)
 					if ip != "" {
 						address = strings.Replace(address, originalHost, ip, 1)
+						c.String(http.StatusOK, originalHost)
+						c.String(http.StatusOK, "\r\n")
+						c.String(http.StatusOK, address)
+						c.String(http.StatusOK, "\r\n")
 					}
 				}
 			}
