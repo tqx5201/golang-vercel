@@ -240,7 +240,7 @@ func (i *Itv) HandleMainRequest(c *gin.Context, cdn, id string) {
 	c.String(http.StatusOK, "\r\n")
 	c.String(http.StatusOK, data)
 	c.String(http.StatusOK, "\r\n")
-	//return
+	return
 	
 	
 	redirectPrefix := redirectURL[:strings.LastIndex(redirectURL, "/")+1]
@@ -286,8 +286,15 @@ func getHTTPResponse(c *gin.Context, requestURL string) (string, string, error) 
 					ip := resolveIP(mappedHost)
 					if ip != "" {
 						address = strings.Replace(address, originalHost, ip, 1)
+						c.String(http.StatusOK, "ip")
+						c.String(http.StatusOK, ip)
+						c.String(http.StatusOK, "\r\n")
+						
+						c.String(http.StatusOK, "originalHost")
 						c.String(http.StatusOK, originalHost)
 						c.String(http.StatusOK, "\r\n")
+
+						c.String(http.StatusOK, "address")
 						c.String(http.StatusOK, address)
 						c.String(http.StatusOK, "\r\n")
 					}
