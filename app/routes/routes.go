@@ -17,7 +17,7 @@ func Register(app *gin.Engine) {
 	app.NoRoute(ErrRouter)
 
 	app.GET("/ping", handler.Ping)
-        app.GET("/:path/:rid", handler.feiyang)
+        app.GET("/:path/:rid", handler.Feiyang)
 	route := app.Group("/api")
 	{
 		route.GET("/hello/:name", handler.Hello)
