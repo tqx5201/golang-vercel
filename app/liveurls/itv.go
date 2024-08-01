@@ -231,25 +231,13 @@ func (i *Itv) HandleMainRequest(c *gin.Context, cdn, id string) {
 		return
 	}
 
-	data, redirectURL, err := getHTTPResponse(c,url)
-
-	
+	data, redirectURL, err := getHTTPResponse(url)
 	if err != nil {
 		c.String(http.StatusInternalServerError, err.Error())
 		return
 	}
 	redirectPrefix := redirectURL[:strings.LastIndex(redirectURL, "/")+1]
-        
-	c.String(http.StatusOK, url)
-	c.String(http.StatusOK, "\r\n")
-	c.String(http.StatusOK, data)
-	c.String(http.StatusOK, "\r\n")
-	c.String(http.StatusOK, redirectPrefix)	
-	c.String(http.StatusOK, "\r\n")
-	return
-	
 
-	
 	// 替换TS文件的链接
 	golang := "http://" + c.Request.Host + c.Request.URL.Path
 	re := regexp.MustCompile(`((?i).*?\.ts)`)
@@ -269,7 +257,7 @@ func (i *Itv) HandleTsRequest(c *gin.Context, ts string) {
 	ts = strings.ReplaceAll(ts, "$", "&")
 
 	c.Header("Content-Type", "video/MP2T")
-	content, _, err := getHTTPResponse(c,ts)
+	content, _, err := getHTTPResponse(ts)
 	if err != nil {
 		c.String(http.StatusInternalServerError, err.Error())
 		return
@@ -277,11 +265,11 @@ func (i *Itv) HandleTsRequest(c *gin.Context, ts string) {
 	c.String(http.StatusOK, content)
 }
 
-func getHTTPResponse(c *gin.Context, requestURL string) (string, string, error) {
+func getHTTPResponse(requestURL string) (string, string, error) {
 	dialer := &net.Dialer{
 		Timeout: 5 * time.Second,
 	}
-c.String(http.StatusOK, requestURL)
+
 	// 自定义resolver
 	resolver := net.Resolver{
 		PreferGo: true,
@@ -289,21 +277,14 @@ c.String(http.StatusOK, requestURL)
 			for originalHost, mappedHost := range hostMappings {
 				if strings.Contains(address, originalHost) {
 					ip := resolveIP(mappedHost)
-					c.String(http.StatusOK, "ip地址：<br>")
-					c.String(http.StatusOK, ip)
-					c.String(http.StatusOK, "<br>")
 					if ip != "" {
 						address = strings.Replace(address, originalHost, ip, 1)
-						c.String(http.StatusOK, "address：<br>")
-						c.String(http.StatusOK, address)
-						c.String(http.StatusOK, "<br>")
 					}
 				}
 			}
 			return dialer.DialContext(ctx, network, address)
 		},
 	}
-
 
 	client := &http.Client{
 		Transport: &http.Transport{
@@ -312,24 +293,12 @@ c.String(http.StatusOK, requestURL)
 	}
 
 	resp, err := client.Get(requestURL)
-c.String(http.StatusOK, "resp.Body：\r\n")
-	c.String(http.StatusOK, resp.Body)
-	c.String(http.StatusOK, "\r\n")
-
-
-	
 	if err != nil {
 		return "", "", err
 	}
 	defer resp.Body.Close()
 
 	redirectURL := resp.Header.Get("Location")
-	
-	c.String(http.StatusOK, "redirectURL：\r\n")
-	c.String(http.StatusOK, redirectURL)
-	c.String(http.StatusOK, "\r\n")
-
-	
 	if redirectURL == "" {
 		redirectURL = requestURL
 	}
@@ -338,10 +307,7 @@ c.String(http.StatusOK, "resp.Body：\r\n")
 	if err != nil {
 		return "", "", err
 	}
-c.String(http.StatusOK, "body：\r\n")
-	c.String(http.StatusOK, body)
-	c.String(http.StatusOK, "\r\n")
-	
+
 	return body, redirectURL, nil
 }
 
