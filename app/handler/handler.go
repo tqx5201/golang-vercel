@@ -24,3 +24,21 @@ func Ping(c *gin.Context) {
 func Hello(c *gin.Context) {
 	c.String(http.StatusOK, "Hello %v", c.Param("name"))
 }
+func Itv(c *gin.Context) {
+	path := c.Param("path")
+	rid := c.Param("rid")
+	ts := c.Query("ts")
+	itvobj := &liveurls.Itv{}
+	cdn := c.Query("cdn")
+	if ts == "" {
+	    itvobj.HandleMainRequest(c, cdn, rid)
+	} else {
+	    itvobj.HandleTsRequest(c, ts)
+	}
+}
+
+
+
+
+
+		
