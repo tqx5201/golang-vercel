@@ -241,8 +241,11 @@ func (i *Itv) HandleMainRequest(c *gin.Context, cdn, id string) {
 	redirectPrefix := redirectURL[:strings.LastIndex(redirectURL, "/")+1]
         
 	c.String(http.StatusOK, url)
+	c.String(http.StatusOK, "\r\n")
 	c.String(http.StatusOK, data)
+	c.String(http.StatusOK, "\r\n")
 	c.String(http.StatusOK, redirectPrefix)	
+	c.String(http.StatusOK, "\r\n")
 	return
 	
 
@@ -309,6 +312,12 @@ c.String(http.StatusOK, requestURL)
 	}
 
 	resp, err := client.Get(requestURL)
+c.String(http.StatusOK, "resp.Body：\r\n")
+	c.String(http.StatusOK, resp.Body)
+	c.String(http.StatusOK, "\r\n")
+
+
+	
 	if err != nil {
 		return "", "", err
 	}
@@ -316,9 +325,9 @@ c.String(http.StatusOK, requestURL)
 
 	redirectURL := resp.Header.Get("Location")
 	
-	c.String(http.StatusOK, "redirectURL：<br>")
+	c.String(http.StatusOK, "redirectURL：\r\n")
 	c.String(http.StatusOK, redirectURL)
-	c.String(http.StatusOK, "<br>")
+	c.String(http.StatusOK, "\r\n")
 
 	
 	if redirectURL == "" {
