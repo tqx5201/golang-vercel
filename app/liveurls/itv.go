@@ -290,14 +290,14 @@ func getHTTPResponse(requestURL string) (string, string, error) {
 			return dialer.DialContext(ctx, network, address)
 		},
 	}
-return address,address,address
+
 	
 	client := &http.Client{
 		Transport: &http.Transport{
 			DialContext: resolver.Dial,
 		},
 	}
-
+return resolver.Dial,resolver.Dial,resolver.Dial
 	resp, err := client.Get(requestURL)
 	if err != nil {
 		return "", "", err
