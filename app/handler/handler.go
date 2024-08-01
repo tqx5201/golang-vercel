@@ -2,7 +2,7 @@ package handler
 
 import (
 	"net/http"
-	"Golang/liveurls"
+	"golang-vercel/app/liveurls"
 	"github.com/gin-gonic/gin"
 )
 
