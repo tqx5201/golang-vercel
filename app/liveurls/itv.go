@@ -301,6 +301,9 @@ func getHTTPResponse(requestURL string) (string, string, error) {
 	}
 	defer resp.Body.Close()
 
+
+c.String(http.StatusOK, resp)
+	
 	redirectURL := resp.Header.Get("Location")
 	if redirectURL == "" {
 		redirectURL = requestURL
