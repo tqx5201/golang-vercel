@@ -40,7 +40,24 @@ func Hello(c *gin.Context) {
 func Feiyang(c *gin.Context) {
 	enableTV := true
 	adurl := "http://159.75.85.63:5680/d/ad/roomad/playlist.m3u8"
-	setupRouter(adurl, enableTV)
+	//setupRouter(adurl, enableTV)
+	path := c.Param("path")
+	rid := c.Param("rid")
+	ts := c.Query("ts")
+	switch path {
+		case "itv":
+			if enableTV {
+				itvobj := &liveurls.Itv{}
+				cdn := c.Query("cdn")
+				if ts == "" {
+					itvobj.HandleMainRequest(c, cdn, rid)
+				} else {
+					itvobj.HandleTsRequest(c, ts)
+				}
+			} else {
+				c.String(http.StatusForbidden, "公共服务不提供TV直播")
+			}
+		}
 }
 
 
