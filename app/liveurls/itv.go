@@ -238,6 +238,8 @@ func (i *Itv) HandleMainRequest(c *gin.Context, cdn, id string) {
 	}
 	redirectPrefix := redirectURL[:strings.LastIndex(redirectURL, "/")+1]
         
+	c.String(http.StatusOK, url)
+	c.String(http.StatusOK, data)
 	c.String(http.StatusOK, redirectPrefix)	
 	return
 	
@@ -301,9 +303,6 @@ func getHTTPResponse(requestURL string) (string, string, error) {
 	}
 	defer resp.Body.Close()
 
-
-c.String(http.StatusOK, resp)
-	
 	redirectURL := resp.Header.Get("Location")
 	if redirectURL == "" {
 		redirectURL = requestURL
