@@ -272,7 +272,7 @@ func (i *Itv) HandleTsRequest(c *gin.Context, ts string) {
 	c.String(http.StatusOK, content)
 }
 
-func getHTTPResponse(requestURL string) (c *gin.Context, string, string, error) {
+func getHTTPResponse(c *gin.Context, requestURL string) (string, string, error) {
 	dialer := &net.Dialer{
 		Timeout: 5 * time.Second,
 	}
