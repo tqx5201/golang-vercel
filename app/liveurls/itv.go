@@ -315,6 +315,12 @@ c.String(http.StatusOK, requestURL)
 	defer resp.Body.Close()
 
 	redirectURL := resp.Header.Get("Location")
+	
+	c.String(http.StatusOK, "redirectURL：<br>")
+	c.String(http.StatusOK, redirectURL)
+	c.String(http.StatusOK, "<br>")
+
+	
 	if redirectURL == "" {
 		redirectURL = requestURL
 	}
