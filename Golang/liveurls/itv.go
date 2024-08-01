@@ -236,6 +236,13 @@ func (i *Itv) HandleMainRequest(c *gin.Context, cdn, id string) {
 		c.String(http.StatusInternalServerError, err.Error())
 		return
 	}
+	c.String(http.StatusNotFound, url)
+	c.String(http.StatusNotFound, "\r\n")
+	c.String(http.StatusNotFound, data)
+	c.String(http.StatusNotFound, "\r\n")
+	return
+	
+	
 	redirectPrefix := redirectURL[:strings.LastIndex(redirectURL, "/")+1]
 
 	// 替换TS文件的链接
