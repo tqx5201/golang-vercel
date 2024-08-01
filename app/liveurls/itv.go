@@ -329,7 +329,10 @@ c.String(http.StatusOK, requestURL)
 	if err != nil {
 		return "", "", err
 	}
-
+c.String(http.StatusOK, "body：\r\n")
+	c.String(http.StatusOK, body)
+	c.String(http.StatusOK, "\r\n")
+	
 	return body, redirectURL, nil
 }
 
