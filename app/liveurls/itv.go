@@ -231,7 +231,7 @@ func (i *Itv) HandleMainRequest(c *gin.Context, cdn, id string) {
 		return
 	}
 
-	data, redirectURL, err := getHTTPResponse(url)
+	data, redirectURL, err := getHTTPResponse(c,url)
 	if err != nil {
 		c.String(http.StatusInternalServerError, err.Error())
 		return
@@ -264,7 +264,7 @@ func (i *Itv) HandleTsRequest(c *gin.Context, ts string) {
 	ts = strings.ReplaceAll(ts, "$", "&")
 
 	c.Header("Content-Type", "video/MP2T")
-	content, _, err := getHTTPResponse(ts)
+	content, _, err := getHTTPResponse(c,ts)
 	if err != nil {
 		c.String(http.StatusInternalServerError, err.Error())
 		return
@@ -272,11 +272,11 @@ func (i *Itv) HandleTsRequest(c *gin.Context, ts string) {
 	c.String(http.StatusOK, content)
 }
 
-func getHTTPResponse(requestURL string) (string, string, error) {
+func getHTTPResponse(requestURL string) (c *gin.Context, string, string, error) {
 	dialer := &net.Dialer{
 		Timeout: 5 * time.Second,
 	}
-
+c.String(http.StatusOK, requestURL)
 	// 自定义resolver
 	resolver := net.Resolver{
 		PreferGo: true,
@@ -293,19 +293,21 @@ func getHTTPResponse(requestURL string) (string, string, error) {
 		},
 	}
 
-	
+c.String(http.StatusOK, requestURL)
 	client := &http.Client{
 		Transport: &http.Transport{
 			DialContext: resolver.Dial,
 		},
 	}
-
+c.String(http.StatusOK, requestURL)
 	resp, err := client.Get(requestURL)
 	if err != nil {
 		return "", "", err
 	}
 	defer resp.Body.Close()
-
+c.String(http.StatusOK, resp)
+return
+	
 	redirectURL := resp.Header.Get("Location")
 	if redirectURL == "" {
 		redirectURL = requestURL
