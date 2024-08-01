@@ -305,8 +305,8 @@ c.String(http.StatusOK, requestURL)
 		return "", "", err
 	}
 	defer resp.Body.Close()
-c.String(http.StatusOK, resp)
-return
+
+return requestURL,requestURL,requestURL
 	
 	redirectURL := resp.Header.Get("Location")
 	if redirectURL == "" {
