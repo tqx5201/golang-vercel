@@ -232,6 +232,10 @@ func (i *Itv) HandleMainRequest(c *gin.Context, cdn, id string) {
 	}
 
 	data, redirectURL, err := getHTTPResponse(c,url)
+	return
+
+
+	
 	if err != nil {
 		c.String(http.StatusInternalServerError, err.Error())
 		return
@@ -306,8 +310,6 @@ c.String(http.StatusOK, requestURL)
 	}
 	defer resp.Body.Close()
 
-return requestURL,requestURL,requestURL
-	
 	redirectURL := resp.Header.Get("Location")
 	if redirectURL == "" {
 		redirectURL = requestURL
