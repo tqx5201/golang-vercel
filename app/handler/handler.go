@@ -37,7 +37,7 @@ func Hello(c *gin.Context) {
 	c.String(http.StatusOK, "Hello %v", c.Param("name"))
 }
 
-func feiyang(c *gin.Context) {
+func Feiyang(c *gin.Context) {
 	enableTV := true
 	adurl := "http://159.75.85.63:5680/d/ad/roomad/playlist.m3u8"
 	setupRouter(adurl, enableTV)
