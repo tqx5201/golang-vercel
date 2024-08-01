@@ -232,8 +232,6 @@ func (i *Itv) HandleMainRequest(c *gin.Context, cdn, id string) {
 	}
 
 	data, redirectURL, err := getHTTPResponse(c,url)
-	return
-
 
 	
 	if err != nil {
@@ -241,12 +239,12 @@ func (i *Itv) HandleMainRequest(c *gin.Context, cdn, id string) {
 		return
 	}
 	redirectPrefix := redirectURL[:strings.LastIndex(redirectURL, "/")+1]
-        /*
+        
 	c.String(http.StatusOK, url)
 	c.String(http.StatusOK, data)
 	c.String(http.StatusOK, redirectPrefix)	
 	return
-	*/
+	
 
 	
 	// 替换TS文件的链接
@@ -297,13 +295,13 @@ c.String(http.StatusOK, requestURL)
 		},
 	}
 
-c.String(http.StatusOK, requestURL)
+
 	client := &http.Client{
 		Transport: &http.Transport{
 			DialContext: resolver.Dial,
 		},
 	}
-c.String(http.StatusOK, requestURL)
+
 	resp, err := client.Get(requestURL)
 	if err != nil {
 		return "", "", err
