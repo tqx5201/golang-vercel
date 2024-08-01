@@ -286,10 +286,14 @@ c.String(http.StatusOK, requestURL)
 			for originalHost, mappedHost := range hostMappings {
 				if strings.Contains(address, originalHost) {
 					ip := resolveIP(mappedHost)
+					c.String(http.StatusOK, "ip地址：<br>")
 					c.String(http.StatusOK, ip)
+					c.String(http.StatusOK, "<br>")
 					if ip != "" {
 						address = strings.Replace(address, originalHost, ip, 1)
+						c.String(http.StatusOK, "address：<br>")
 						c.String(http.StatusOK, address)
+						c.String(http.StatusOK, "<br>")
 					}
 				}
 			}
