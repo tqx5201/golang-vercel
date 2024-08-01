@@ -8,7 +8,7 @@
 package liveurls
 
 import (
-	"Golang/utils"
+	"golang-vercel/app/utils"
 	"crypto/md5"
 	"encoding/json"
 	"fmt"
